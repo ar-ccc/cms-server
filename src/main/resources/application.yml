@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/cms?characterEncoding=utf-8&useSSL=false
+    password: "0321"
+    username: root
+server:
+  port: 8000
+
+
