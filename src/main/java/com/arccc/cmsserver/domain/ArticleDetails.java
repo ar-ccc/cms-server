@@ -1,25 +1,21 @@
 package com.arccc.cmsserver.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 文章类
- * @TableName article
+ *
+ * @TableName article_details
  */
-@AllArgsConstructor
-@NoArgsConstructor
-public class Article implements Serializable {
+@TableName(value ="article_details")
+public class ArticleDetails implements Serializable {
     /**
-     *
+     * 与文章的id绑定
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.INPUT)
     private Integer id;
 
     /**
@@ -35,25 +31,20 @@ public class Article implements Serializable {
     /**
      *
      */
-    private String author;
+    private String description;
 
-    /**
-     *
-     */
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date date;
-
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
-     *
+     * 与文章的id绑定
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     *
+     * 与文章的id绑定
      */
     public void setId(Integer id) {
         this.id = id;
@@ -76,43 +67,29 @@ public class Article implements Serializable {
     /**
      *
      */
-    public String getSubTitlte() {
+    public String getSubTitle() {
         return subTitle;
     }
 
     /**
      *
      */
-    public void setSubTitlte(String subTitlte) {
-        this.subTitle = subTitlte;
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     /**
      *
      */
-    public String getAuthor() {
-        return author;
+    public String getDescription() {
+        return description;
     }
 
     /**
      *
      */
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    /**
-     *
-     */
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     *
-     */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -126,12 +103,11 @@ public class Article implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Article other = (Article) that;
+        ArticleDetails other = (ArticleDetails) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getMainTitle() == null ? other.getMainTitle() == null : this.getMainTitle().equals(other.getMainTitle()))
-            && (this.getSubTitlte() == null ? other.getSubTitlte() == null : this.getSubTitlte().equals(other.getSubTitlte()))
-            && (this.getAuthor() == null ? other.getAuthor() == null : this.getAuthor().equals(other.getAuthor()))
-            && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()));
+            && (this.getSubTitle() == null ? other.getSubTitle() == null : this.getSubTitle().equals(other.getSubTitle()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
     }
 
     @Override
@@ -140,9 +116,8 @@ public class Article implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getMainTitle() == null) ? 0 : getMainTitle().hashCode());
-        result = prime * result + ((getSubTitlte() == null) ? 0 : getSubTitlte().hashCode());
-        result = prime * result + ((getAuthor() == null) ? 0 : getAuthor().hashCode());
-        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
+        result = prime * result + ((getSubTitle() == null) ? 0 : getSubTitle().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         return result;
     }
 
@@ -154,9 +129,8 @@ public class Article implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", mainTitle=").append(mainTitle);
-        sb.append(", subTitlte=").append(subTitle);
-        sb.append(", author=").append(author);
-        sb.append(", date=").append(date);
+        sb.append(", subTitle=").append(subTitle);
+        sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

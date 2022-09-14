@@ -1,6 +1,7 @@
 package com.arccc.cmsserver.service;
 
 import com.arccc.cmsserver.domain.Article;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.Map;
 */
 public interface ArticleService extends IService<Article> {
 
-    List<Article> listForParam(Map<String, String> param);
+    IPage<Article> listForParam(Map<String, String> param);
 }

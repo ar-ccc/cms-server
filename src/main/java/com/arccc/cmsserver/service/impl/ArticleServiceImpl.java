@@ -3,6 +3,7 @@ package com.arccc.cmsserver.service.impl;
 import com.arccc.cmsserver.domain.Article;
 import com.arccc.cmsserver.service.ArticleService;
 import com.arccc.cmsserver.mapper.ArticleMapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,15 +23,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
 implements ArticleService{
 
     @Override
-    public List<Article> listForParam(Map<String, String> param) {
+    public IPage<Article> listForParam(Map<String, String> param) {
         String page = param.get("page");
         String count = param.get("pageSize");
+        Page<Article> pages;
         if (StringUtils.hasLength(page) && StringUtils.hasLength(count)){
-            Page<Article> pages = new Page<>(Long.parseLong(page),Long.parseLong(count));
-            Page<Article> articlePage = baseMapper.selectPage(pages, null);
-            return articlePage.getRecords();
+            pages = new Page<>(Long.parseLong(page),Long.parseLong(count));
+
         }else {
-            return baseMapper.selectList(null);
+            pages = new Page<>(1,10);
         }
+        Page<Article> articlePage = baseMapper.selectPage(pages, new QueryWrapper<>());
+        return articlePage;
     }
 }
