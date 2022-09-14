@@ -18,6 +18,7 @@ import java.util.Date;
 public class ArticleDetialController {
     @Autowired
     private ArticleDetailsService articleDetailsService;
+    @Autowired
     private ArticleService articleService;
 
     @GetMapping("/get/{id}")
@@ -64,6 +65,12 @@ public class ArticleDetialController {
                 articleDetailsService.updateById(articleDetails);
             }
         }
+        return Result.ok();
+    }
+    @DeleteMapping("/delete/{id}")
+    public Result delete(@PathVariable("id") Long id){
+        articleService.removeById(id);
+        articleDetailsService.removeById(id);
         return Result.ok();
     }
 }
