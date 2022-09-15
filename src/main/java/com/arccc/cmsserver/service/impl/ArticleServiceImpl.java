@@ -31,7 +31,7 @@ implements ArticleService{
             pages = new Page<>(Long.parseLong(page),Long.parseLong(count));
 
         }else {
-            pages = new Page<>(1,10);
+            pages = new Page<>(1,6);
         }
         Page<Article> articlePage = baseMapper.selectPage(pages, new QueryWrapper<>());
         return articlePage;

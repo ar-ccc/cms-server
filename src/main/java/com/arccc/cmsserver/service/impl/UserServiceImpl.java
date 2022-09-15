@@ -5,9 +5,13 @@ import com.arccc.cmsserver.exception.ExceptionEnum;
 import com.arccc.cmsserver.exception.MyException;
 import com.arccc.cmsserver.service.UserService;
 import com.arccc.cmsserver.mapper.UserMapper;
+import com.arccc.cmsserver.utils.JwtUtil;
 import com.arccc.cmsserver.vo.UserLoginOrRegistryVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwt;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,14 +37,15 @@ implements UserService{
     }
 
     @Override
-    public String login(UserLoginOrRegistryVo vo) {
+    public String login(UserLoginOrRegistryVo vo) throws JsonProcessingException {
         User user = baseMapper.selectOne(new QueryWrapper<User>()
                 .eq("name", vo.getUsername())
                 .eq("password", vo.getPassword()));
         if (user != null){
             //TODO 设置token
-
-            return "abc";
+            ObjectMapper objectMapper = new ObjectMapper();
+            String s = objectMapper.writer().writeValueAsString(user);
+            return JwtUtil.createJWT(s);
         }else {
             throw new MyException(ExceptionEnum.USERNAME_OR_PASSWORD_ERROR);
         }

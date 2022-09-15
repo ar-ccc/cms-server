@@ -3,6 +3,7 @@ package com.arccc.cmsserver.service;
 import com.arccc.cmsserver.domain.User;
 import com.arccc.cmsserver.vo.UserLoginOrRegistryVo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
 * @author dengxingda
@@ -13,5 +14,5 @@ public interface UserService extends IService<User> {
 
     void registry(UserLoginOrRegistryVo vo);
 
-    String login(UserLoginOrRegistryVo vo);
+    String login(UserLoginOrRegistryVo vo) throws JsonProcessingException;
 }
